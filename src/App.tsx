@@ -9,6 +9,7 @@ export default () => {
 
   const [movieList, setMovieList] = useState<any[]>([]);
   const [featuredData, setFeaturedData] = useState<any>(null);
+  const [blackHeader, setBlackHeader] = useState<boolean>(false)
 
   useEffect(() => {
     const loadAll = async () => {
@@ -22,7 +23,7 @@ export default () => {
       let featured = originals[0].items.results[randomFeatured];
       let featuredInfo: any = await Tmdb.getMovieInfo(featured.id, 'tv')
 
-      if(!featuredInfo.overview){
+      if (!featuredInfo.overview) {
         location.reload();
       }
 
@@ -32,19 +33,52 @@ export default () => {
     loadAll();
   }, []);
 
+  useEffect(() => {
+    const scrollListener = () => {
+      if (window.scrollY > 10) {
+        setBlackHeader(true);
+      } else {
+        setBlackHeader(false);
+      }
+    }
+
+    window.addEventListener('scroll', scrollListener);
+    return () => {
+      window.removeEventListener('scroll', scrollListener);
+    }
+
+  }, [])
+
   return (
     <div className='page'>
 
-      <Header />
+      <Header black={blackHeader} />
 
-    {featuredData && 
-    <FeaturedMovieComponent item={featuredData} />}
+      {featuredData &&
+        <FeaturedMovieComponent item={featuredData} />}
 
       <section className='lists'>
         {movieList.map((item, key) => (
           <MovieListComponent key={key} title={item.title} items={item.items} />
         ))}
       </section>
+
+      <footer>
+        Developed With <span role="img" aria-label="heart">❤️</span><br />
+        Netflix Image Rights ©<br />
+        Data From TMDB Api ©<br />
+        <br />
+        By<br />
+        <strong>Wilson Santos</strong>
+      </footer>
+
+
+      {movieList.length <= 0 &&
+        <div className='loading'>
+          <img src='src\assets\netflixstartup.gif' alt='loading'></img>
+        </div>
+      }
+
     </div>
   );
 }

@@ -1,9 +1,9 @@
 import React from "react";
 import './styles.modules.scss';
 
-export function Header() {
+export function Header(prop: {black: boolean}) {
     return (
-        <header>
+        <header className={prop.black ? 'black' : ''}>
             <div className="header--logo">
                 <a href="/"><img src="src\assets\logo\netflixlogo.png" alt="logo"></img></a> 
             </div>
