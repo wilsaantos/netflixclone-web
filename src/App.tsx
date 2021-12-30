@@ -75,7 +75,7 @@ export default () => {
 
       {movieList.length <= 0 &&
         <div className='loading'>
-          <img src='src\assets\netflixstartup.gif' alt='loading'></img>
+          <img src='./src/assets/netflixstartup.gif' alt='loading'></img>
         </div>
       }
 
