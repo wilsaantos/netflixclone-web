@@ -4,6 +4,7 @@ import { MovieListComponent } from './components/MovieList';
 import './App.css';
 import { FeaturedMovieComponent } from './components/FeaturedMovie';
 import { Header } from './components/Header';
+import loading from './assets/netflixstartup.gif'
 
 export default () => {
 
@@ -75,7 +76,7 @@ export default () => {
 
       {movieList.length <= 0 &&
         <div className='loading'>
-          <img src='./src/assets/netflixstartup.gif' alt='loading'></img>
+          <img src={loading} alt='loading'></img>
         </div>
       }
 
